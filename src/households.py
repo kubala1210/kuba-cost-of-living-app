@@ -14,11 +14,21 @@ class City:
         print(
             f'OBLICZENIA MINIMALNEGO WYNAGRODZENIA I WSKAŹNIKA ZAMOŻNOŚCI DLA {(self.__class__.__name__).upper()}')
         self.country = input('Podaj nazwę państwa: ')
+        if any(char.isdigit() for char in self.country):
+            raise TypeError('Nazwa Państwa nie moze zawierać cyfr')
         self.city_name = input('Podaj nazwę miasta: ')
+        if any(char.isdigit() for char in self.city_name):
+            raise TypeError('Nazwa miasta nie moze zaawierać cyfr')
         self.cost_of_living = float(
             input(f'Podaj koszty życia dla {self.__class__.__name__} w Twoim mieście: '))
+        if self.cost_of_living <= 0:
+            raise ValueError(
+                'Koszty zycia nie mogą być rowne lub mniejsze od 0')
         self.cost_of_rent = float(
-            input('Podaj koszt wynajmu lub kredytu za mieszkanie: '))
+            input('Podaj koszt wynajmu lub kredytu za mieszkanie: ')) # jak tutaj zaimplementować raise error w przypadku podania litery zamiast cyfry
+        if self.cost_of_rent <= 0:
+            raise ValueError(
+                'Koszty wynajmu lub kredytu nie mogą być równe lub mniejsze od 0')
         self.total_cost = self.cost_of_living + self.cost_of_rent
         print(
             f'Całkowity koszt życia dla {self.__class__.__name__} w {self.country}, {self.city_name} to {self.total_cost}')
@@ -41,16 +51,19 @@ class Household(City):
     def wealth_level_counter(self, wealth_level=0, result=''):
         self.average_salary = float(
             input('Wprowadź średnie wynagrodzenie w Twoim mieście: '))
+        if self.average_salary <= 0:
+            raise ValueError(
+                'Średnie wynagrodzenie nie moze być mniejsze lub równe 0')
         wealth_level = round(
             ((self.average_salary * self.multiplier) / self.minimum_salary), 1)
         if wealth_level <= 1:
-            result = f'Poziom zamożności {self.__class__.__name__} wynosi {wealth_level}. {self.country}, {self.city_name} jest mało zamożne'
+            result = f'Poziom zamożności {self.__class__.__name__} wynosi {wealth_level}. {self.country}, {self.city_name}, {self.__class__.__name__}  jest mało zamożne'
         elif wealth_level > 1 and wealth_level <= 1.5:
-            result = f'Poziom zamożności {self.__class__.__name__} wynosi {wealth_level}. {self.country}, {self.city_name} jest średnio zamożne'
+            result = f'Poziom zamożności {self.__class__.__name__} wynosi {wealth_level}. {self.country}, {self.city_name}, {self.__class__.__name__}  jest średnio zamożne'
         elif wealth_level > 1.5 and wealth_level <= 2:
-            result = f'Poziom zamożności {self.__class__.__name__} wynosi {wealth_level}. {self.country}, {self.city_name} jest zamożne'
+            result = f'Poziom zamożności {self.__class__.__name__} wynosi {wealth_level}. {self.country}, {self.city_name}, {self.__class__.__name__}  jest zamożne'
         elif wealth_level > 2:
-            result = f'Poziom zamożności {self.__class__.__name__} wynosi {wealth_level}. {self.country}, {self.city_name} jest bardzo zamożne'
+            result = f'Poziom zamożności {self.__class__.__name__} wynosi {wealth_level}. {self.country}, {self.city_name}, {self.__class__.__name__}  jest bardzo zamożne'
         print(result)
 
 
@@ -78,6 +91,8 @@ class Family2plus1(Household):
     def wealth_level_counter(self, wealth_level=0, result=''):
         self.multiplier = float(
             input('Podaj liczbę osób zarabiających w gospodarstwie: '))
+        if self.multiplier <= 0:
+            raise ValueError('Liczba osób nie może być mniejsza lub równa 0')
         super().wealth_level_counter()
 
 
@@ -90,6 +105,8 @@ class Family2plus2(Household):
     def wealth_level_counter(self, wealth_level=0, result=''):
         self.multiplier = float(
             input('Podaj liczbę osób zarabiających w gospodarstwie: '))
+        if self.multiplier <= 0:
+            raise ValueError('Liczba osób nie może być mniejsza lub równa 0')
         super().wealth_level_counter()
 
 
