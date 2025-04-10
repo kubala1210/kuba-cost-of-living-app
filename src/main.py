@@ -16,6 +16,7 @@ def main():
     family_02.main_calc()
     return False
 
+
 if __name__ == "__main__":
     while True:
         try:
@@ -44,4 +45,3 @@ if __name__ == "__main__":
             exit()
         else:
             continue
-

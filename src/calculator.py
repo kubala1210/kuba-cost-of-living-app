@@ -7,6 +7,7 @@ class CostCalculator(Household):
         self.cost_counter()
         self.minimum_salary_counter()
         self.wealth_level_counter()
+        self.get_history()
 
 
 class Single(CostCalculator):
@@ -62,7 +63,7 @@ if __name__ == '__main__':
 
         single_01.main_calc()
         couple_01.main_calc()
-        amily_01.main_calc()
+        family_01.main_calc()
         family_02.main_calc()
     except Exception as error:
         print(error)
