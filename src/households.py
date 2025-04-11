@@ -1,5 +1,8 @@
 from calculator import Household
 
+# MYŚLĘ, ŻE W ZWIĄZKU ZE ZMIANAMI TEGO MODUŁU MOŻNA SIĘ CAŁKIEM POZBYĆ -
+# CHYBA, ŻE BĘDZIE MIAŁ SPEŁNIAĆ INNĄ FUNKCJĘ
+
 
 class Single(Household):
     pass
