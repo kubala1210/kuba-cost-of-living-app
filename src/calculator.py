@@ -3,17 +3,19 @@ class UserInterface:
     def collect_data(self, multiplier=1):
         family_type = input(
             'Podaj rodzaj gospodarstwa domowego single/couple/family2plus1/family2plus2: ').upper()
-        country = input('Podaj nazwę państwa: ')
-        city_name = input('Podaj nazwę miasta: ')
-        cost_of_living = float(
-            input(f'Podaj koszty życia dla {family_type} w Twoim mieście: '))
-        cost_of_rent = float(
-            input('Podaj koszt wynajmu lub kredytu za mieszkanie: '))
-        average_salary = float(
-            input('Wprowadź średnie wynagrodzenie w Twoim mieście: '))
+        country = input(
+            'Podaj nazwę państwa: ')
+        city_name = input(
+            'Podaj nazwę miasta: ')
+        cost_of_living = float(input(
+            f'Podaj koszty życia dla {family_type} w Twoim mieście: '))
+        cost_of_rent = float(input(
+            'Podaj koszt wynajmu lub kredytu za mieszkanie: '))
+        average_salary = float(input(
+            'Wprowadź średnie wynagrodzenie w Twoim mieście: '))
         if family_type == 'Family2plus1' or family_type == 'Family2plus2':
-            multiplier = float(
-                input('Podaj liczbę osób zarabiających w gospodarstwie: '))
+            multiplier = float(input(
+                'Podaj liczbę osób zarabiających w gospodarstwie: '))
         return family_type, country, city_name, cost_of_living, cost_of_rent, average_salary, multiplier
 
 
@@ -29,7 +31,8 @@ class City:
         self.multiplier = validated_data.multiplier
 
     def cost_counter(self):
-        print(f'OBLICZENIA MINIMALNEGO WYNAGRODZENIA I WSKAŹNIKA ZAMOŻNOŚCI DLA {(self.family_type).upper()}')
+        print(
+            f'OBLICZENIA MINIMALNEGO WYNAGRODZENIA I WSKAŹNIKA ZAMOŻNOŚCI DLA {(self.family_type).upper()}')
         self.cost_of_rent = float(self.cost_of_rent)
         total_cost = self.cost_of_living + self.cost_of_rent
         print(
@@ -68,3 +71,29 @@ class Household(City):
         elif wealth_level > 2:
             result = f'Poziom zamożności {self.family_type} wynosi {wealth_level}. {self.country}, {self.city_name}, {self.family_type}  jest bardzo zamożne'
         return result
+
+
+class History:
+
+    def __init__(self):
+        self.calc_history = {}
+        self.error_history = {}
+
+    def save_calc_data(self, family_type='', country='', city_name='', cost_of_living=1, cost_of_rent=1,
+                       average_salary=1, minimum_salary=1, total_cost=1, wealth_level=1):
+        if country not in self.calc_history:
+            self.calc_history[country] = {}
+        if city_name not in self.calc_history[country]:
+            self.calc_history[country][city_name] = {
+                'cost of living': cost_of_living,
+                'cost of rent': cost_of_rent,
+                'average salary': average_salary,
+                'minimum salary': minimum_salary,
+                'total cost': total_cost,
+                'wealth level': wealth_level
+            }
+
+    def save_error_history(self, error=''):
+        if 'Errors' not in self.error_history:
+            self.error_history['Errors'] = []
+        self.error_history['Errors'].append(str(error))
